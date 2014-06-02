@@ -5,6 +5,8 @@ namespace backend\models;
 use Yii;
 use backend\components\AdminActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use \yii\helpers\Json;
 
 /**
  * This is the model class for table "admin_script_assign".
@@ -72,5 +74,34 @@ class ScriptAssign extends AdminActiveRecord
             'JS'=>'Javascript',
             'CSS'=>'CSS'
         ];
+    }
+
+    /**
+     * used in create and update actions
+     * @param $stype string script type
+     * @return string
+     */
+    public function getScriptOptions($stype)
+    {
+        $type = '';
+        $prompt = '';
+        switch($stype){
+            case 'JS':
+                $type = 'JS';
+                $prompt = 'Javascript';
+                break;
+            case 'CSS':
+                $type = 'CSS';
+                $prompt = 'Style Sheet';
+                break;
+        }
+        $list = Script::find()
+            ->where(['deleted'=>Script::DELETED_NO, 'status'=>Script::STATUS_ACTIVE, 'type'=>$type])
+            ->asArray()
+            ->all();
+
+        $listOptions = ArrayHelper::map($list, 'id', 'name');
+        $dropList = Html::activeDropDownList($this, 'script_id', $listOptions, ['prompt'=>'Select '.$prompt ]);
+        return Json::encode($dropList);
     }
 }

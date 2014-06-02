@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'page_id')->hiddenInput(['value'=>$pageId])->label(false) ?>
     <?= $form->field($model, 'assign_type')->hiddenInput(['value'=>$assignType])->label(false) ?>
     <?= $form->field($model, 'script_type')->dropDownList($model->getScriptTypeOptions(), ['prompt'=>'Select Script Type']) ?>
-    <?= $form->field($model, 'script_id')->dropDownList([]) ?>
+    <?= $form->field($model, 'script_id')->dropDownList([], ['prompt'=>'']) ?>
     <?= $form->field($model, 'status')->checkbox([], false) ?>
 
 
@@ -29,3 +29,21 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$script = <<<JS
+$("#scriptassign-script_type").on("change", function(){
+//console.log($(this).val());
+    $.ajax({
+        type : 'POST',
+        data : {'stype': $(this).val()},
+        dataType : 'JSON',
+        success : function(data){
+            $("#scriptassign-script_id").html(data);
+        }
+    });
+})
+JS;
+
+$this->registerJs($script, $this::POS_END, 'script-assign')
+?>

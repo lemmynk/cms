@@ -94,8 +94,8 @@ class ScriptAssignController extends Controller
     {
         $model = new ScriptAssign;
 
-        if(Yii::$app->request->isAjax){
-            echo $model->getContentOptions($_POST['cid']);
+        if(Yii::$app->request->isAjax && isset($_POST['stype'])){
+            echo $model->getScriptOptions($_POST['stype']);
             Yii::$app->end();
         }
 
