@@ -73,7 +73,7 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex($url1=null, $url2=null, $url3=null, $url4=null, $url5=null, $url6=null/**/)
+    public function actionIndex($url1=null, $url2=null, $url3=null, $url4=null, $url5=null, $url6=null)
     {
         $this->urls[0] = !empty($url1) ? $url1: '';
         $this->urls[1] = !empty($url2) ? $url2: '';
