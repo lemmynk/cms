@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
             <?= Html::a(Yii::t('app', 'Assigns'), ['assign/index', 'type'=>'P', 'pid' => $model->id], ['class' => 'btn btn-success']) ?>
-            <?= Html::a(Yii::t('app', 'Scripts Ana Styles'), ['script-assign/index', 'type'=>'P', 'pid' => $model->id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Yii::t('app', 'Scripts And Styles'), ['script-assign/index', 'type'=>'P', 'pid' => $model->id], ['class' => 'btn btn-success']) ?>
             <?= Html::a(Yii::t('app', 'Back to list'), ['index'], ['class' => 'btn btn-default']) ?>
         </p>
 

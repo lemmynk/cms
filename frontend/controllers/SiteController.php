@@ -9,6 +9,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use yii\web\HttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -17,8 +18,6 @@ use backend\models\Page;
 use backend\models\Template;
 use backend\models\TemplateSector;
 use backend\models\Content;
-use backend\models\JsScript;
-
 
 /**
  * Site controller
@@ -82,14 +81,18 @@ class SiteController extends Controller
         $this->urls[3] = !empty($url4) ? $url4: '';
         $this->urls[4] = !empty($url5) ? $url5: '';
         $this->urls[5] = !empty($url6) ? $url6: '';
-        //HelpFunctions::echoArray($this->urls);
 
         $pageUrl =  empty($this->urls[0]) ? 'home' : $this->urls[0];
         $page = Page::getPageByUrl($pageUrl);
-        $scripts = $page->getPageScripts();
-        $template = $page->getTemplate()->one();
+        if($page === null){
+            throw new HttpException('404','Requested page does not exist');
+        }
+        $pageScripts = $page->getScripts();
+
+        $template = $page->getTemplate();
         $templateForm = $template->template_form;
-        $sectors = $template->getSectors()->all();
+        $templateScripts = $template->getScripts();
+        $sectors = $template->getSectors();
 
         foreach($sectors as $sector){
             $templateForm = str_replace('{{'.$sector->filename.'}}', $sector->getSectorContent($template->id, $page->id), $templateForm);
@@ -98,11 +101,12 @@ class SiteController extends Controller
         return $this->render('index', [
             'templateForm'=>$templateForm,
             'pageTitle'=>$page->title,
-            'scripts'=>$scripts
+            'pageScripts'=>$pageScripts,
+            'templateScripts'=>$templateScripts
         ]);
     }
 
-    public function actionLogin()
+    /*public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -199,5 +203,5 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
-    }
+    }/**/
 }

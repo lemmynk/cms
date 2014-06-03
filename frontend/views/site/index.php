@@ -50,12 +50,15 @@ $this->title = 'My Yii Application';
     </div>
 </div>
 /**/
-?>
-<?php
+
 $this->title = $pageTitle;
 echo $templateForm;
-foreach($scripts as $script){
-    $this->registerJs($script->content);
+if(!empty($templateScripts)){
+    foreach($templateScripts as $tScript){
+        if($tScript->script_type === 'JS')
+            $this->registerJs($tScript->getScriptContent());
+        else{
+            $this->registerCss($tScript->getScriptContent());
+        }
+    }
 }
-
-?>

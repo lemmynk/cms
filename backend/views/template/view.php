@@ -32,8 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
-            <?= Html::a(Yii::t('app', 'View Sectors'), ['template-sector/index', 'id'=>$model->id],['class' => 'btn btn-success', 'id'=>'toggle-sectors']) ?>
-            <?= Html::a(Yii::t('app', 'View Assigns'), ['assign/index', 'type'=>'T', 'pid'=>$model->id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Yii::t('app', 'Sectors'), ['template-sector/index', 'id'=>$model->id],['class' => 'btn btn-success', 'id'=>'toggle-sectors']) ?>
+            <?= Html::a(Yii::t('app', 'Assigns'), ['assign/index', 'type'=>'T', 'pid'=>$model->id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Yii::t('app', 'Scripts And Styles'), ['script-assign/index', 'type'=>'T', 'pid' => $model->id], ['class' => 'btn btn-success']) ?>
             <?= Html::a(Yii::t('app', 'Back to list'), ['index'], ['class' => 'btn btn-default']) ?>
         </p>
 

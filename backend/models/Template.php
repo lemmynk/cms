@@ -79,7 +79,18 @@ class Template extends AdminActiveRecord
     public function getSectors()
     {
         return $this->hasMany(TemplateSector::className(), ['tpl_id' => 'id'])
-            ->where(['deleted'=>TemplateSector::DELETED_NO, 'status'=>TemplateSector::STATUS_ACTIVE]);
+            ->where(['deleted'=>TemplateSector::DELETED_NO, 'status'=>TemplateSector::STATUS_ACTIVE])
+            ->all();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getScripts()
+    {
+        return $this->hasMany(ScriptAssign::className(), ['page_id' => 'id'])
+            ->where(['deleted'=>ScriptAssign::DELETED_NO, 'status'=>ScriptAssign::STATUS_ACTIVE, 'assign_type'=>'T','page_id'=>$this->id])
+            ->all();
     }
 
     /**

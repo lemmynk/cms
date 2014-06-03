@@ -11,7 +11,7 @@ use yii\widgets\DetailView;
 $pageTemplate = $assignType == 'P' ? backend\models\Page::findOne(['id'=>$pageId]) : backend\models\Template::findOne(['id'=>$pageId]);
 $breedTitle = $assignType == 'P' ? 'Page' : 'Template';
 $breedUrl = $assignType == 'P' ? 'page' : 'template';
-$this->title = Yii::t('app', 'Add' . $breedTitle . 'Assign');
+$this->title = Yii::t('app', 'Add ' . $breedTitle . ' Assign');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', $breedTitle.'s' ), 'url' => [$breedUrl.'/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', $pageTemplate->name), 'url' => [$breedUrl.'/view', 'id'=>$pageId]];
 $this->params['breadcrumbs'][] = $this->title;

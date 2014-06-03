@@ -77,6 +77,30 @@ class ScriptAssign extends AdminActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getScriptTypeText()
+    {
+        return $this->script_type === 'JS' ? 'Javascript' : 'Css';
+    }
+
+    /**
+     * @return string content of the script based on script_id
+     */
+    public function getScriptContent()
+    {
+        return Script::findOne($this->script_id)->content;
+    }
+
+    /**
+     * @return string name of the script based on script_id
+     */
+    public function getScriptName()
+    {
+        return Script::findOne($this->script_id)->name;
+    }
+
+    /**
      * used in create and update actions
      * @param $stype string script type
      * @return string

@@ -77,7 +77,17 @@ class Page extends AdminActiveRecord
      */
     public function getTemplate()
     {
-        return $this->hasOne(Template::className(), ['id' => 'tpl_id']);
+        return $this->hasOne(Template::className(), ['id' => 'tpl_id'])->one();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getScripts()
+    {
+        return $this->hasMany(ScriptAssign::className(), ['page_id' => 'id'])
+            ->where(['deleted'=>ScriptAssign::DELETED_NO, 'status'=>ScriptAssign::STATUS_ACTIVE, 'assign_type'=>'P','page_id'=>$this->id])
+            ->all();
     }
 
     public static function getPageByUrl($url)

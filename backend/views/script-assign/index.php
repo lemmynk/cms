@@ -30,19 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'assign_type',
-            'page_id',
-            'script_type',
-            'script_id',
-            // 'status',
-            // 'deleted',
-            // 'created_at',
-            // 'created_by',
-            // 'updated_at',
-            // 'updated_by',
-
+            [
+                'attribute'=>'script_type',
+                'value'=>function($data){
+                    return $data->getScriptTypeText();
+                }
+            ],
+            [
+                'attribute'=>'script_id',
+                'value'=>function($data){
+                    return $data->getScriptName();
+                }
+            ],
+            [
+                'attribute'=>'status',
+                'value'=>function($data){
+                    return $data->getStatusText($data->status);
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

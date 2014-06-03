@@ -146,9 +146,12 @@ class AssignController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $type = $model->assign_type;
+        $pid = $model->page_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'type'=>$type, 'pid'=>$pid]);
     }
 
     /**

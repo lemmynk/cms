@@ -8,8 +8,13 @@ use yii\widgets\DetailView;
  * @var backend\models\ScriptAssign $model
  */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Script Assigns'), 'url' => ['index']];
+$pageTemplate = $assignType == 'P' ? backend\models\Page::findOne(['id'=>$pageId]) : backend\models\Template::findOne(['id'=>$pageId]);
+$breedTitle = $assignType == 'P' ? 'Page' : 'Template';
+$breedUrl = $assignType == 'P' ? 'page' : 'template';
+$this->title = Yii::t('app', 'View '.$breedTitle. ' Script '. $model->id);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $breedTitle.'s' ), 'url' => [$breedUrl.'/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $pageTemplate->name), 'url' => [$breedUrl.'/view', 'id'=>$pageId]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Scripts'), 'url' => ['index', 'type'=>$assignType, 'pid'=>$pageId]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="script-assign-view">
@@ -25,18 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
-            <?= Html::a(Yii::t('app', 'Back to list'), ['index'], ['class' => 'btn btn-default']) ?>
+            <?= Html::a(Yii::t('app', 'Back to list'), ['index', 'type'=>$model->assign_type, 'pid'=>$model->page_id], ['class' => 'btn btn-default']) ?>
         </p>
 
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                  'id',
-              'assign_type',
-              'page_id',
-              'script_type',
-              'script_id',
-               [
+                'id',
+                [
+                    'attribute'=>'script_type',
+                    'value'=>$model->getScriptTypeText()
+                ],
+                [
+                    'attribute'=>'script_id',
+                    'value'=>$model->getScriptName()
+                ],
+                [
                     'attribute'=>'status',
                     'value'=>$model->getStatusText($model->status)
                 ],

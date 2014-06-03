@@ -120,11 +120,18 @@ class ScriptAssignController extends Controller
     {
         $model = $this->findModel($id);
 
+        if(Yii::$app->request->isAjax && isset($_POST['stype'])){
+            echo $model->getScriptOptions($_POST['stype']);
+            Yii::$app->end();
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'pageId'=>$model->page_id,
+                'assignType'=>$model->assign_type
             ]);
         }
     }
@@ -137,9 +144,12 @@ class ScriptAssignController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $type = $model->assign_type;
+        $pid = $model->page_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'type'=>$type, 'pid'=>$pid]);
     }
 
     /**

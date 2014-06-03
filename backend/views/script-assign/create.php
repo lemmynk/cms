@@ -8,12 +8,13 @@ use yii\widgets\DetailView;
  * @var backend\models\ScriptAssign $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
-  'modelClass' => 'Script Assign',
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Script Assigns'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
+$pageTemplate = $assignType == 'P' ? backend\models\Page::findOne(['id'=>$pageId]) : backend\models\Template::findOne(['id'=>$pageId]);
+$breedTitle = $assignType == 'P' ? 'Page' : 'Template';
+$breedUrl = $assignType == 'P' ? 'page' : 'template';
+$this->title = Yii::t('app', 'Add ' . $breedTitle . ' Script');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $breedTitle.'s' ), 'url' => [$breedUrl.'/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $pageTemplate->name), 'url' => [$breedUrl.'/view', 'id'=>$pageId]];
+$this->params['breadcrumbs'][] = $this->title;?>
 <div class="script-assign-create">
     <div class="col-md-9">
         <h2 class="page-header"><?= Html::encode($this->title) ?></h2>

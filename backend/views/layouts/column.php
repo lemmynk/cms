@@ -16,7 +16,7 @@ $controller = Yii::$app->controller->id;
                     ]);/**/
                     ?>
                 </li>
-                <li class="<?= $controller === 'page' || ($controller === 'assign' && $this->params['breadcrumbs'][0]['label'] == 'Pages') ? 'active' : '' ?>">
+                <li class="<?= $controller === 'page' || (($controller === 'assign' || $controller === 'script-assign') && $this->params['breadcrumbs'][0]['label'] == 'Pages') ? 'active' : '' ?>">
                     <?php
                     $label = '<i class="glyphicon glyphicon-chevron-right"></i>' .  'Pages';
                     echo Html::a($label, ['page/index'], [
@@ -37,7 +37,7 @@ $controller = Yii::$app->controller->id;
                     ]);/**/
                     ?>
                 </li>
-                <li class="<?= in_array($controller, ['template', 'template-sector']) || ($controller === 'assign' && $this->params['breadcrumbs'][0]['label'] == 'Templates') ? 'active' : '' ?>">
+                <li class="<?= in_array($controller, ['template', 'template-sector']) || (($controller === 'assign' || $controller === 'script-assign') && $this->params['breadcrumbs'][0]['label'] == 'Templates') ? 'active' : '' ?>">
                     <?php
                     $label = '<i class="glyphicon glyphicon-chevron-right"></i>' .  'Templates';
                     echo Html::a($label, ['template/index'], [

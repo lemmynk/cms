@@ -8,12 +8,15 @@ use yii\widgets\DetailView;
  * @var backend\models\ScriptAssign $model
  */
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-  'modelClass' => 'Script Assign',
-]) . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Script Assigns'), 'url' => ['index']];
+$pageTemplate = $assignType == 'P' ? backend\models\Page::findOne(['id'=>$pageId]) : backend\models\Template::findOne(['id'=>$pageId]);
+$breedTitle = $assignType == 'P' ? 'Page' : 'Template';
+$breedUrl = $assignType == 'P' ? 'page' : 'template';
+$this->title = Yii::t('app', 'Update '.$breedTitle. ' Script');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $breedTitle.'s' ), 'url' => [$breedUrl.'/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $pageTemplate->name), 'url' => [$breedUrl.'/view', 'id'=>$pageId]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Scripts'), 'url' => ['index', 'type'=>$assignType, 'pid'=>$pageId]];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="script-assign-update">
     <div class="col-md-9">
@@ -21,6 +24,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         <?= $this->render('_form', [
             'model' => $model,
+            'assignType'=>$assignType,
+            'pageId'=>$pageId
         ]) ?>
     </div>
     <div class="col-md-3">
