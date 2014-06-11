@@ -31,6 +31,10 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'request'=>[
+            'class' => 'common\components\Request',
+            'web'=> '/frontend/web'
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -40,6 +44,8 @@ return [
                 '<url1>/<url2>'=>'site/index',
                 '<url1>/<url2>/<url3>'=>'site/index',
                 '<url1>/<url2>/<url3>/<url4>'=>'site/index',
+                '<url1>/<url2>/<url3>/<url4>/<url5>'=>'site/index',
+                '<url1>/<url2>/<url3>/<url4>/<url5>/<url6>'=>'site/index',
             ],/**/
         ],
     ],

@@ -2,9 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\helpers\HelpFunctions;
 use Yii;
-use backend\models\Page;
+use backend\models\File;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -13,9 +12,9 @@ use yii\filters\AccessControl;
 use backend\components\AdminAccessRule;
 
 /**
- * PageController implements the CRUD actions for Page model.
+ * FileController implements the CRUD actions for File model.
  */
-class PageController extends Controller
+class FileController extends Controller
 {
     public $layout = 'column';
 
@@ -50,13 +49,13 @@ class PageController extends Controller
     }
 
     /**
-     * Lists all Page models.
+     * Lists all File models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Page::find(),
+            'query' => File::find(),
         ]);
 
         return $this->render('index', [
@@ -65,8 +64,8 @@ class PageController extends Controller
     }
 
     /**
-     * Displays a single Page model.
-     * @param string $id
+     * Displays a single File model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
@@ -77,33 +76,33 @@ class PageController extends Controller
     }
 
     /**
-     * Creates a new Page model.
+     * Creates a new File model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cid)
     {
-        $model = new Page;
-        //HelpFunctions::echoArray(Yii::$app->request->post());
+        $model = new File;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'cid'=>$cid
             ]);
         }
     }
 
     /**
-     * Updates an existing Page model.
+     * Updates an existing File model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        //HelpFunctions::echoArray(Yii::$app->request->post());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -115,9 +114,9 @@ class PageController extends Controller
     }
 
     /**
-     * Deletes an existing Page model.
+     * Deletes an existing File model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -128,15 +127,15 @@ class PageController extends Controller
     }
 
     /**
-     * Finds the Page model based on its primary key value.
+     * Finds the File model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Page the loaded model
+     * @param integer $id
+     * @return File the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Page::findOne($id)) !== null) {
+        if (($model = File::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

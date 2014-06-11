@@ -26,6 +26,7 @@ use backend\models\FileCategory;
  */
 class File extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -40,10 +41,13 @@ class File extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id'], 'required'],
-            [['category_id', 'status', 'deleted', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['category_id', 'name'], 'required'],
+            [['category_id'], 'integer'],
+            ['name', 'unique'],
             [['name', 'filename', 'type'], 'string', 'max' => 255],
-            [['ext'], 'string', 'max' => 10]
+            [['ext'], 'string', 'max' => 10],
+            ['file', 'file', 'maxFiles'=>100],
+            ['file', 'file', 'types'=>['jpg', 'jpeg', 'gif', 'png', 'tiff', 'pdf', 'doc', 'docx', 'zip', 'ppt', 'pptx', 'xls', 'xlsx']]
         ];
     }
 

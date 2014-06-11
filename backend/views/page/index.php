@@ -26,11 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
-            'url:url',
+            [
+                'attribute'=>'url',
+                'format'=>'raw',
+                'value'=>function($data){
+                        return $data->getPageFrontendUrl();
+                }
+            ],
             [
                 'attribute'=>'tpl_id',
                 'value'=>function($data){
-                    return $data->getTemplate()->one()->name;
+                    return $data->getTemplate()->name;
                 }
             ],
             [

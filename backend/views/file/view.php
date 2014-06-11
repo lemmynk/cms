@@ -2,18 +2,17 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\helpers\Url;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\Page $model
+ * @var backend\models\File $model
  */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pages'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Files'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-view">
+<div class="file-view">
     <div class="col-md-9">
         <h2 class="page-header"><?= Html::encode($this->title) ?></h2>
 
@@ -26,8 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
-            <?= Html::a(Yii::t('app', 'Assigns'), ['assign/index', 'type'=>'P', 'pid' => $model->id], ['class' => 'btn btn-success']) ?>
-            <?= Html::a(Yii::t('app', 'Scripts And Styles'), ['script-assign/index', 'type'=>'P', 'pid' => $model->id], ['class' => 'btn btn-success']) ?>
             <?= Html::a(Yii::t('app', 'Back to list'), ['index'], ['class' => 'btn btn-default']) ?>
         </p>
 
@@ -36,23 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                   'id',
               'name',
-                [
-                    'attribute'=>'url',
-                    'format'=>'raw',
-                    'value'=>$model->getPageFrontendUrl()
-                ],
-              //'url:url',
-                [
-                    'attribute'=>'tpl_id',
-                    'value'=>$model->getTemplate()->name,
-                ],
-              'title',
-              'keywords:ntext',
-              'description:ntext',
+              'category_id',
+              'filename',
+              'ext',
+              'type',
                [
                     'attribute'=>'status',
                     'value'=>$model->getStatusText($model->status)
-               ],
+                ],
             ],
         ]) ?>
     </div>

@@ -16,6 +16,7 @@ return [
         'user' => [
             'identityClass' => 'backend\models\User',
             'enableAutoLogin' => true,
+            'loginUrl'=>['site/login']
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -32,6 +33,11 @@ return [
         /*'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ],/**/
+        'request'=>[
+            'class' => 'common\components\Request',
+            'web'=> '/backend/web',
+            'adminUrl' => '/admin',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

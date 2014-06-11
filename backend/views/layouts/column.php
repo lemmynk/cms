@@ -37,6 +37,13 @@ $controller = Yii::$app->controller->id;
                     ]);/**/
                     ?>
                 </li>
+                <li class="<?= in_array($controller, ['file', 'file-category']) ? 'active' : '' ?>">
+                    <?php
+                    $label = '<i class="glyphicon glyphicon-chevron-right"></i>' .  'Files';
+                    echo Html::a($label, ['file-category/index'], [
+                    ]);/**/
+                    ?>
+                </li>
                 <li class="<?= in_array($controller, ['template', 'template-sector']) || (($controller === 'assign' || $controller === 'script-assign') && $this->params['breadcrumbs'][0]['label'] == 'Templates') ? 'active' : '' ?>">
                     <?php
                     $label = '<i class="glyphicon glyphicon-chevron-right"></i>' .  'Templates';

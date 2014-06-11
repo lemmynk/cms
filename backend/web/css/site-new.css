@@ -1,9 +1,11 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
 html {
     min-height: 100%;
     position: relative;
 }
 body {
     margin-bottom: 60px;
+    font-family: 'Ubuntu', sans-serif !important;
 }
 
 body.signin {
@@ -62,6 +64,10 @@ code {
 .nav-sidebar > li > a {
     padding-left: 20px;
     padding-right: 20px;
+}
+.nav-sidebar > li > a:hover {
+    background-color: #428BCA;
+    color: #FFFFFF;
 }
 .nav-sidebar > .active > a {
     background-color: #428BCA;
@@ -156,3 +162,29 @@ code {
     position: relative;
     clear: both;
 }
+
+.list-view {
+    padding-top: 20px;
+}
+.list-view > .item {
+    /*float: left;*/
+    margin: 0 0 10px 10px;
+    text-align: center;
+}
+.list-view > .item:after {
+    clear: both;
+}
+
+.thumbnail .caption {
+    text-align: center;
+}
+
+/*.thumbnail {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+    display: block;
+    line-height: 20px;
+    padding: 4px;
+    transition: all 0.2s ease-in-out 0s;
+}/**/

@@ -14,6 +14,17 @@ use backend\components\AdminAccessRule;
 class SiteController extends Controller
 {
     public $layout = 'column';
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if($this->action->id === 'login')
+            return true;
+        else
+            return parent::beforeAction($action);
+    }
     /**
      * @inheritdoc
      */
@@ -33,7 +44,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin', 'editor'],
                     ],
                 ],
             ],

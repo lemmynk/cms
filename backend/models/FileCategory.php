@@ -7,6 +7,7 @@ use backend\models\User;
 use backend\models\File;
 use yii\helpers\ArrayHelper;
 use backend\helpers\HelpFunctions;
+use backend\components\AdminActiveRecord;
 
 /**
  * This is the model class for table "admin_file_category".
@@ -23,7 +24,7 @@ use backend\helpers\HelpFunctions;
  *
  * @property File[] $Files
  */
-class FileCategory extends \yii\db\ActiveRecord
+class FileCategory extends AdminActiveRecord
 {
     /**
      * @inheritdoc

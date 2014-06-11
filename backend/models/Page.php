@@ -96,4 +96,9 @@ class Page extends AdminActiveRecord
             ->where(['deleted'=>self::DELETED_NO, 'status'=>self::STATUS_ACTIVE, 'url'=>$url])
             ->one();
     }
+
+    public function getPageFrontendUrl()
+    {
+        return '<a target="_blank" href="'.Yii::$app->urlManager->getHostInfo().'/'.$this->url.'">'. $this->url .'</a>';
+    }
 }
