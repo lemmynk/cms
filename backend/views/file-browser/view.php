@@ -14,9 +14,7 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'File Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="file-category-view" id="file-category-view">
-    <!--<div class="col-md-9">-->
-        <!--<h2 class="page-header"><?php //echo Html::encode($this->title) ?></h2>-->
+<div class="file-category-view">
         <p>
             <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
@@ -56,62 +54,37 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-toggle'=>'tooltip',
                             'data-placement'=>'top',
                             'class'=>'thumbnail',
-                            'width'=>100,
+                            'width'=>200,
                             'height'=>100,
-                            'style'=>'float: left; margin-right: 10px']),
-                            ['file/view', 'id'=>$data->id],
-                            ['class'=>'file-view-ajax']
-                        );
+                            'style'=>'float: left; margin-right: 10px; cursor: pointer']
+                        ), '#');
                     }
                 ]);
             ?>
         </div>
-    <!--</div>-->
-    <!--<div class="col-md-3">
-        <h2 class="page-header">System info</h2>
-        <div style="margin: 63px 0"></div>
-        <?php /*echo DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-                [
-                'attribute'=>'created_at',
-                'value'=>!$model->isNewRecord ? date('d. m. Y', $model->created_at) : ''
-                ],
-                [
-                'attribute'=>'created_by',
-                'value'=>!$model->isNewRecord ? $model->getCreator()->one()->getUserName() : ''
-                ],
-                [
-                'attribute'=>'updated_at',
-                'value'=>!$model->isNewRecord ? date('d. m. Y', $model->updated_at) : ''
-                ],
-                [
-                'attribute'=>'updated_by',
-                'value'=>!$model->isNewRecord ? $model->getCreator()->one()->getUserName() : ''
-                ]
-            ],
-        ]) /**/?>
-    </div>-->
 </div>
+
 <?php
 $js = <<<JS
-var fileLinks = $(".files").find("a");
-$.each(fileLinks, function(i, v){
-    $(v).on("click", function(e){
+var links = $(".files").find("a"),
+getUrlParam = function( paramName ){
+    var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' ) ;
+    var match = window.location.search.match(reParam) ;
+
+    return ( match && match.length > 1 ) ? match[ 1 ] : null ;
+};
+$.each(links, function(i, v){
+    var link = $(v);
+    link.on("click", function(e){
         e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: $(v).attr("href"),
-            //dataType: 'json',
-            success: function(data){
-                $("#file-category-view").html(data);
-            }
-        });
+        var funcNum = getUrlParam( 'CKEditorFuncNum' ),
+            img = link.find("img");
+        console.log(img.attr("src"));
+        window.opener.CKEDITOR.tools.callFunction( funcNum, img.attr("src"));
+        window.close();
+        //return false;
     });
 });
 JS;
-
 ?>
-<?php $this->registerJs('$(".thumbnail").tooltip();');
-$this->registerJs($js);
-?>
+<?php $this->registerJs($js); ?>

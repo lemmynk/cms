@@ -30,6 +30,9 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
         /*'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ],/**/

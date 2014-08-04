@@ -2,8 +2,9 @@
 /**
  * @var yii\web\View $this
  */
-$this->title = 'My Yii Application';
+$this->title = 'Cms';
 ?>
+<?php /*
 <div class="site-index">
 
     <div class="jumbotron">
@@ -51,3 +52,4 @@ $this->title = 'My Yii Application';
 
     </div>
 </div>
+/**/ ?>

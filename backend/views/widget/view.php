@@ -5,16 +5,14 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\File $model
+ * @var backend\models\Widget $model
  */
 
 $this->title = $model->name;
-$category = $model->getCategory()->one();
-$this->params['breadcrumbs'][] = ['label'=>Yii::t('app', 'File Categories'), 'url'=>['file-category/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $category->name), 'url' => ['file-category/view', 'id'=>$category->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Widgets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="file-view">
+<div class="widget-view">
     <div class="col-md-9">
         <h2 class="page-header"><?= Html::encode($this->title) ?></h2>
 
@@ -27,22 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
-            <?= Html::a(Yii::t('app', 'Back'), ['file-category/view', 'id'=>$category->id], ['class' => 'btn btn-default']) ?>
+            <?= Html::a(Yii::t('app', 'Back to list'), ['index'], ['class' => 'btn btn-default']) ?>
         </p>
 
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-               'id',
-               'name',
-               'category_id',
-               'filename',
-               'ext',
-               'type',
+                  'id',
+              'name',
+              'content:ntext',
                [
                     'attribute'=>'status',
                     'value'=>$model->getStatusText($model->status)
-               ],
+                ],
             ],
         ]) ?>
     </div>

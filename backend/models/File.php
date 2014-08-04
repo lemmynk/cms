@@ -2,9 +2,11 @@
 
 namespace backend\models;
 
+use backend\helpers\HelpFunctions;
 use Yii;
 use backend\models\User;
 use backend\models\FileCategory;
+use backend\components\AdminActiveRecord;
 
 /**
  * This is the model class for table "admin_file".
@@ -24,9 +26,17 @@ use backend\models\FileCategory;
  *
  * @property FileCategory $category
  */
-class File extends \yii\db\ActiveRecord
+class File extends AdminActiveRecord
 {
+    /**
+     * @var object file property
+     */
     public $file;
+    /**
+     * @var array allowed types of file extension
+     * Used for validating extensions before files are uploaded
+     */
+    public $allowedTypes = ['jpg', 'jpeg', 'gif', 'png', 'tiff', 'txt', 'doc', 'docx', 'ppt',' pptx', 'xls', 'xlsx', 'pdf', 'flv', 'mpeg', 'mov', 'mp4', 'wmv', 'mp3', 'wma','wav', 'zip'];
     /**
      * @inheritdoc
      */
@@ -35,6 +45,11 @@ class File extends \yii\db\ActiveRecord
         return 'admin_file';
     }
 
+    public function beforeValidate()
+    {
+        $this->filename = HelpFunctions::parseForSEO($this->name);
+        return parent::beforeValidate();
+    }
     /**
      * @inheritdoc
      */
@@ -46,9 +61,20 @@ class File extends \yii\db\ActiveRecord
             ['name', 'unique'],
             [['name', 'filename', 'type'], 'string', 'max' => 255],
             [['ext'], 'string', 'max' => 10],
-            ['file', 'file', 'maxFiles'=>100],
-            ['file', 'file', 'types'=>['jpg', 'jpeg', 'gif', 'png', 'tiff', 'pdf', 'doc', 'docx', 'zip', 'ppt', 'pptx', 'xls', 'xlsx']]
+            ['ext', 'validateFileType'],
+            ['file', 'file', 'types'=>['jpg', 'jpeg', 'gif', 'png', 'tiff', 'txt', 'doc', 'docx', 'ppt',' pptx', 'xls', 'xlsx', 'pdf', 'flv', 'mpeg', 'mov', 'mp4', 'wmv', 'mp3', 'wma','wav', 'zip']]
         ];
+    }
+
+    /**
+     * validates just extension
+     */
+    public function validateFileType($attr, $params)
+    {
+        if(!in_array($this->ext, $this->allowedTypes)){
+            $this->addError($attr, 'Only types with these extensions are allowed:
+            jpg, jpeg, gif, png, tiff, txt, doc, docx, ppt, pptx, xls, xlsx, pdf, flv, mpeg, mov, mp4, wmv, mp3, wma, wav, zip');
+        }
     }
 
     /**
@@ -78,5 +104,26 @@ class File extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(FileCategory::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @return string path for storing files
+     */
+    public function getSavePath()
+    {
+        return 'uploads/' . $this->getFileSaveName();
+    }
+
+    public function getFileUrl()
+    {
+        return Yii::$app->request->getBaseUrl(). '/uploads/' . $this->getFileSaveName();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFileSaveName()
+    {
+        return $this->category_id . '_' . $this->filename . '.' . $this->ext;
     }
 }

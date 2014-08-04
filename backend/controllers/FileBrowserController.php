@@ -16,9 +16,9 @@ use yii\helpers\Json;
 /**
  * FileCategoryController implements the CRUD actions for FileCategory model.
  */
-class FileCategoryController extends Controller
+class FileBrowserController extends Controller
 {
-    public $layout = '@backend/views/file-category/layout.php';
+    public $layout = '@backend/views/file-browser/layout.php';
 
     public function behaviors()
     {
@@ -83,56 +83,6 @@ class FileCategoryController extends Controller
             'dataProvider'=>$files,
         ]);
         return $ret;
-    }
-
-    /**
-     * Creates a new FileCategory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new FileCategory;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing FileCategory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Deletes an existing FileCategory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

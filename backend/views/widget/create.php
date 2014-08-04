@@ -5,27 +5,23 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var backend\models\File $model
+ * @var backend\models\Widget $model
  */
 
-$category = \backend\models\FileCategory::findOne($cid);
-$this->title = Yii::t('app', $category->name.' - Add {modelClass}', [
-  'modelClass' => 'Files',
+$this->title = Yii::t('app', 'Create {modelClass}', [
+  'modelClass' => 'Widget',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'File Categories'), 'url' => ['file-category/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', $category->name), 'url' => ['file-category/view', 'id'=>$cid]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Add {modelClass}', ['modelClass' => 'Files',]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Widgets'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="file-create">
+<div class="widget-create">
+    <div class="col-md-9">
         <h2 class="page-header"><?= Html::encode($this->title) ?></h2>
-
-        <?= Html::a(Yii::t('app', 'Back To Category'), ['file-category/view', 'id' => $cid], ['class' => 'btn btn-primary']) ?>
 
         <?= $this->render('_form', [
             'model' => $model,
-            'cid'=>'cid'
         ]) ?>
-    <?php /*</div>
+    </div>
     <div class="col-md-3">
         <h2 class="page-header">System info</h2>
         <div style="margin: 63px 0"></div>
@@ -50,5 +46,5 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Add {modelClass}', ['modelClass'
                 ]
             ],
         ]) ?>
-    </div>/**/ ?>
+    </div>
 </div>

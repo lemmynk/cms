@@ -55,12 +55,21 @@ class ContentController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Content::find(),
+            'query' => Content::find()->where(['deleted'=>Content::DELETED_NO]),
+            'pagination'=>[
+                'pageSize'=>3
+            ]
         ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        if(Yii::$app->request->getIsAjax()){
+            echo $this->renderAjax('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+            Yii::$app->end();
+        }else{
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -84,6 +93,12 @@ class ContentController extends Controller
     {
         $model = new Content;
 
+        if(Yii::$app->request->getIsAjax()){
+            echo $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+            Yii::$app->end();
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

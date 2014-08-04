@@ -21,7 +21,10 @@
 		"2amigos/yii2-ckeditor-widget": "dev-master",
 		"2amigos/yii2-multi-select-widget": "*",
 		"2amigos/yii2-tinymce-widget": "*",
-		"kartik-v/yii2-widgets": "dev-master"
+		"kartik-v/yii2-widgets": "dev-master",
+		"miller/yii2-file-uploader": "*",
+		"yiisoft/yii2-jui": "*",
+		"yiisoft/yii2-imagine": "*"
 	},
 	"require-dev": {
 		"yiisoft/yii2-codeception": "*",
@@ -50,5 +53,11 @@
 			"frontend/runtime",
 			"frontend/web/assets"
 		]
-	}
+	},
+    "repositories":[
+        {
+            "type": "git",
+            "url": "https://github.com/lemmynk/file-uploader.git"
+        }
+    ]
 }

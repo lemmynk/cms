@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use millersoft\widgets\FileUploader;
+use miller\fileuploader\FileUploader;
 
 /**
  * @var yii\web\View $this
@@ -15,14 +15,13 @@ use millersoft\widgets\FileUploader;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'category_id')->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'category_id')->hiddenInput()->label(false) ?>
+
+        <?= FileUploader::widget([
+            'model'=>$model,
+            'attribute'=>'file',
+            'ajaxVar'=>['name', 'ext']
+        ]); ?>
 
     <?php ActiveForm::end(); ?>
-
-    <?= FileUploader::widget([
-        'model'=>$model,
-        'attribute'=>'file',
-        'ajaxVar'=>['name']
-    ]); ?>
-
 </div>

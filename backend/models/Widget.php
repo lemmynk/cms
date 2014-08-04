@@ -3,35 +3,30 @@
 namespace backend\models;
 
 use Yii;
-use backend\models\User;
-use backend\models\File;
-use yii\helpers\ArrayHelper;
-use backend\helpers\HelpFunctions;
 use backend\components\AdminActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "admin_file_category".
+ * This is the model class for table "admin_widget".
  *
  * @property integer $id
  * @property string $name
- * @property string $filename
+ * @property string $content
  * @property integer $status
  * @property integer $deleted
  * @property integer $created_at
- * @property integer $created_by
  * @property integer $updated_at
+ * @property integer $created_by
  * @property integer $updated_by
- *
- * @property File[] $Files
  */
-class FileCategory extends AdminActiveRecord
+class Widget extends AdminActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'admin_file_category';
+        return 'admin_widget';
     }
 
     /**
@@ -40,15 +35,11 @@ class FileCategory extends AdminActiveRecord
     public function rules()
     {
         return ArrayHelper::merge(parent::rules(), [
-            ['name', 'required'],
-            ['name', 'string', 'min'=>2, 'max'=>255]
+            [['name', 'content', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            [['content'], 'string'],
+            [['status', 'deleted', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['name'], 'string', 'max' => 255]
         ]);
-    }
-
-    public function beforeValidate()
-    {
-        $this->filename = HelpFunctions::parseForSEO($this->name);
-        return parent::beforeValidate();
     }
 
     /**
@@ -59,23 +50,13 @@ class FileCategory extends AdminActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'filename' => Yii::t('app', 'Filename'),
+            'content' => Yii::t('app', 'Content'),
             'status' => Yii::t('app', 'Status'),
             'deleted' => Yii::t('app', 'Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
-            'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFiles()
-    {
-        return $this->hasMany(File::className(), ['category_id' => 'id'])
-            ->where(['deleted'=>File::DELETED_NO])
-            ->all();
     }
 }

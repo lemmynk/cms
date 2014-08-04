@@ -1,95 +1,122 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
-html {
+/*html {
     min-height: 100%;
     position: relative;
 }
 body {
     margin-bottom: 60px;
     font-family: 'Ubuntu', sans-serif !important;
-}
-
-body.signin {
-    background-color: #EEEEEE;
-    padding-bottom: 40px;
-    padding-top: 100px;
-}
-.footer {
-    background-color: #F5F5F5;
-    bottom: 0;
-    height: 60px;
-    position: absolute;
-    width: 100%;
+}/**/
+/********************** main body style ***********************************/
+html,
+body {
     padding-top: 20px;
 }
+
 body > .container-fluid {
     padding: 60px 15px 0;
+    font-family: 'Ubuntu', sans-serif !important;
+    font-size: 12px;
+    color: #4C4C4C;
 }
-.container .text-muted {
-    margin: 20px 0;
+a {
+    color: #4C4C4C;
+    text-decoration: none;
 }
+/*************************** top navigation **********************************/
+.navbar-inverse {
+    background-color: #4C4C4C;
+    border-color: #080808;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #DFDBD2;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #DFDBD2;
+}
+/***************************** footer ****************************************/
+.footer {
+    font-size: 10px;
+    background-color: #f5f5f5;
+    border-top: 3px solid #4C4C4C;
+    bottom: 0;
+    height: 30px;
+    position: fixed;
+    width: 100%;
+    padding-top: 6px;
+    z-index: 1000;
+}
+
 .footer > .container {
     padding-left: 15px;
     padding-right: 15px;
 }
-code {
-    font-size: 80%;
+.footer p {
+    margin-bottom: 0;
 }
-
+/************************************ sidebar ********************************/
 .sidebar {
-    display: none;
-}/**/
-.sidebar.active {
+    background-color: #f5f5f5;
+    border-right: 3px solid #4C4C4C;
+    bottom: 0;
     display: block;
-}
-@media (min-width: 768px) {
-    .sidebar {
-        background-color: #F5F5F5;
-        /*border-right: 1px solid #EEEEEE;/**/
-        bottom: 0;
-        display: block;
-        left: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: 20px;
-        position: fixed;
-        top: 51px;
-        /*z-index: 1000;/**/
-    }
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+    position: fixed;
+    top: 51px;
+    z-index: 1000;
 }
 .nav-sidebar {
     margin-bottom: 20px;
     margin-left: -20px;
     margin-right: -20px;
 }
+.nav-sidebar a {
+    color: #4C4C4C;
+    text-decoration: none;
+}
 .nav-sidebar > li > a {
     padding-left: 20px;
     padding-right: 20px;
 }
 .nav-sidebar > li > a:hover {
-    background-color: #428BCA;
+    background-color: #4C4C4C;
     color: #FFFFFF;
 }
 .nav-sidebar > .active > a {
-    background-color: #428BCA;
+    background-color: #4C4C4C;
     color: #FFFFFF;
 }
 .nav-sidebar .glyphicon {
     float: right;
 }
+/********************************** main content ***********************/
 .main {
-    padding: 20px;
-}
-@media (min-width: 768px) {
-    .main {
-        padding-top: 70px;
-        padding-left: 40px;
-        padding-right: 40px;
-    }
+    /*background-color: #f5f5f5;*/
+    padding-left: 20px;
+    padding-right: 20px;
+    bottom: 0px;
+    display: block;
+    left: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*padding: 20px;*/
+    position: fixed;
+    top: 60px;
 }
 .main .page-header {
     margin-top: 0;
 }
-
+/*************************** signin style ***********************************/
+body.signin {
+    background-color: #EEEEEE;
+    padding-bottom: 40px;
+    padding-top: 100px;
+}
 .form-signin {
     margin: 0 auto;
     max-width: 330px;
@@ -127,7 +154,14 @@ code {
 .form-signin > .form-group > .help-block {
     margin: 0;
 }
-
+/************************************ grid-view style ******************************************/
+.grid-view .summary {
+    float: left;
+}
+.grid-view ul.pagination {
+    float: right;
+    margin: 0;
+}
 @media screen and (max-width: 768px) {
     .row-offcanvas {
         padding-top: 60px;
@@ -179,6 +213,20 @@ code {
     text-align: center;
 }
 
+.category-list li {
+    padding: 5px;
+    margin-left: 5px;
+}
+.category-list i {
+    margin-right: 5px;
+    font-size: 16px;
+}
+.category-list a {
+    font-size: 14px;
+}
+.category-list a.active {
+    color: #999;
+}
 /*.thumbnail {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
@@ -188,3 +236,56 @@ code {
     padding: 4px;
     transition: all 0.2s ease-in-out 0s;
 }/**/
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}

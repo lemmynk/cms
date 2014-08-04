@@ -10,8 +10,9 @@
     RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
     RewriteRule ^admin/js/(.*)$ backend/web/js/$1 [L]
     RewriteRule ^admin/images/(.*)$ backend/web/images/$1 [L]
+    RewriteRule ^admin/uploads/(.*)$ backend/web/uploads/$1 [L]
 
-    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css|js|images)/
+    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css|js|images|uploads)/
     RewriteCond %{REQUEST_URI} ^/(admin)
     RewriteRule ^.*$ backend/web/index.php [L]
 
@@ -21,7 +22,7 @@
     RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
     RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
 
-    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|images|js)/
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|images|js|uploads)/
     RewriteCond %{REQUEST_URI} !index.php
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_FILENAME} !-d

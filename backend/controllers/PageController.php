@@ -56,12 +56,19 @@ class PageController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Page::find(),
+            'query' => Page::find()->where(['deleted'=>Page::DELETED_NO]),
         ]);
+        if(Yii::$app->request->getIsAjax()){
+            echo $this->renderAjax('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+            Yii::$app->end();
+        }else{
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        }
     }
 
     /**

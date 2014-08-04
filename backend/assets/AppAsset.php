@@ -18,7 +18,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = ['css/site-new.css'];
-    public $js = ['js/bootbox.min.js', 'js/delete-popup.js', 'js/toggle-nav'];
+    public $js = ['js/bootbox.min.js', 'js/delete-popup.js', 'js/toggle-nav.js'];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',

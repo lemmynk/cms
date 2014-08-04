@@ -2,23 +2,21 @@
 
 namespace backend\controllers;
 
-use backend\models\File;
 use Yii;
-use backend\models\FileCategory;
+use backend\models\Widget;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\components\AdminAccessRule;
-use yii\helpers\Json;
 
 /**
- * FileCategoryController implements the CRUD actions for FileCategory model.
+ * WidgetController implements the CRUD actions for Widget model.
  */
-class FileCategoryController extends Controller
+class WidgetController extends Controller
 {
-    public $layout = '@backend/views/file-category/layout.php';
+    public $layout = 'column';
 
     public function behaviors()
     {
@@ -51,14 +49,13 @@ class FileCategoryController extends Controller
     }
 
     /**
-     * Lists all FileCategory models.
+     * Lists all Widget models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => FileCategory::find(),
-            'pagination'=>false
+            'query' => Widget::find(),
         ]);
 
         return $this->render('index', [
@@ -67,32 +64,25 @@ class FileCategoryController extends Controller
     }
 
     /**
-     * Displays a single FileCategory model.
+     * Displays a single Widget model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $files = new ActiveDataProvider([
-            'query'=>File::find()->where(['deleted'=>File::DELETED_NO, 'category_id'=>$id]),
-            'pagination'=>false,
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
-        $ret = $this->render('view', [
-            'model' => $model,
-            'dataProvider'=>$files,
-        ]);
-        return $ret;
     }
 
     /**
-     * Creates a new FileCategory model.
+     * Creates a new Widget model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new FileCategory;
+        $model = new Widget;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,7 +94,7 @@ class FileCategoryController extends Controller
     }
 
     /**
-     * Updates an existing FileCategory model.
+     * Updates an existing Widget model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -123,7 +113,7 @@ class FileCategoryController extends Controller
     }
 
     /**
-     * Deletes an existing FileCategory model.
+     * Deletes an existing Widget model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -136,15 +126,15 @@ class FileCategoryController extends Controller
     }
 
     /**
-     * Finds the FileCategory model based on its primary key value.
+     * Finds the Widget model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return FileCategory the loaded model
+     * @return Widget the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = FileCategory::findOne($id)) !== null) {
+        if (($model = Widget::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

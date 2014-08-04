@@ -22,7 +22,6 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
-    <div class="wrap">
         <?php
         NavBar::begin([
             'brandLabel' => 'Miller CMS',
@@ -31,10 +30,6 @@ AppAsset::register($this);
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
         ]);
-        /*$leftMenuItems = [
-            ['label' => 'Content', 'url' => ['/content/index']],
-            ['label' => 'Users', 'url' => ['/user/index']]
-        ];/**/
         $rightMenuItems = [
             //['label' => 'Home', 'url' => ['/site/index']],
         ];
@@ -61,16 +56,12 @@ AppAsset::register($this);
         <div class="container-fluid">
             <?= $content ?>
         </div>
-        <footer class="footer">
+        <!--<footer class="footer">
             <div class="container">
-                <p class="pull-left">&copy; My Company <?php echo date('Y')?></p>
-                <p class="pull-right"><?= Yii::powered() ?></p>
+                <p class="pull-left">&copy; My Company <?php //echo date('Y')?></p>
+                <p class="pull-right"><?php //echo Yii::powered() ?></p>
             </div>
-        </footer>
-    </div>
-
-
-
+        </footer>-->
     <?php $this->endBody() ?>
     </body>
     </html>
